@@ -23,7 +23,8 @@ const Product = ({ id, name, description, img, price, addFunc }) => {
         >
           Add
         </button>
-        <span>${price}</span>
+        <br />
+        <span>INR {price}</span>
       </div>
     </article>
   );
