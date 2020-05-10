@@ -4,7 +4,7 @@ import "../style.css";
 const Product = ({ id, name, description, img, price, addFunc }) => {
   return (
     <article
-      className="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10"
+      className="w-30 bg-white br3 pa3 pa4-ns mv3 ba b--black-10"
       id={id}
     >
       <div className="tc">
