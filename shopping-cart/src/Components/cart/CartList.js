@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 const CartItem = ({ id, name, description, price, units, img }) => (
   <li className="flex items-center lh-copy pa3 ph0-l bb b--black-10">
@@ -18,6 +18,7 @@ const CartItem = ({ id, name, description, price, units, img }) => (
 export default class CartList extends React.PureComponent {
   render() {
     const { cart } = this.props;
+
     return (
       <ul className="list pl0 mt0 measure center">
         {cart.map((item) => (
