@@ -53,21 +53,26 @@ class App extends Component {
 
   handleAddFunc(product) {
     // to get the existing product in the cart, and increase its qualtity
-    const existingProduct = this.state.cart.filter((p) => p.id === product.id);
+    const existingProductIndex = this.state.cart.findIndex(
+      (p) => p.id === product.id
+    );
     // Item is already there
-    if (existingProduct.length > 0) {
+    if (existingProductIndex >= 0) {
       // filter out new items
-      const withoutExistingProduct = this.state.cart.filter(
-        (p) => p.id !== product.id
-      );
+      const cartProducts = this.state.cart.slice();
+
+      const existingProduct = cartProducts[existingProductIndex];
+
       // add the count of units
       const updatedUnitsProducts = {
-        ...existingProduct[0],
-        units: existingProduct[0].units + product.units,
+        ...existingProduct,
+        units: existingProduct.units + product.units,
       };
+
+      cartProducts[existingProductIndex] = updatedUnitsProducts;
       // udpate the state of the cart
       this.setState({
-        cart: [...withoutExistingProduct, updatedUnitsProducts],
+        cart: cartProducts,
       });
     }
     // new items is added in t cart
