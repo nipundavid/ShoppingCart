@@ -38,14 +38,57 @@ class App extends Component {
     super();
     this.state = {
       name: "React",
+      cart: [
+        {
+          id: 1,
+          name: "Cookies",
+          description: "Milk based home baked cookies",
+          img: "https://i.imgur.com/0YUrm5c.jpeg",
+          price: 120,
+          units: 1,
+        },
+      ],
     };
+  }
+
+  handleAddFunc(product) {
+    // to get the existing product in the cart, and increase its qualtity
+    const existingProduct = this.state.cart.filter((p) => p.id === product.id);
+    // Item is already there
+    if (existingProduct.length > 0) {
+      // filter out new items
+      const withoutExistingProduct = this.state.cart.filter(
+        (p) => p.id !== product.id
+      );
+      // add the count of units
+      const updatedUnitsProducts = {
+        ...existingProduct[0],
+        units: existingProduct[0].units + product.units,
+      };
+      // udpate the state of the cart
+      this.setState({
+        cart: [...withoutExistingProduct, updatedUnitsProducts],
+      });
+    }
+    // new items is added in t cart
+    else {
+      this.setState({ cart: [...this.state.cart, product] });
+    }
   }
 
   render() {
     return (
       <main className="pa3 pa5-ns flex flex-wrap">
+        <ul>
+          {this.state.cart.map((c) => (
+            <li>
+              {c.name} | units {c.units}
+            </li>
+          ))}
+        </ul>
+
         {products.map((p) => (
-          <Product key={p.id} {...p} />
+          <Product key={p.id} {...p} addFunc={this.handleAddFunc.bind(this)} />
         ))}
       </main>
     );
